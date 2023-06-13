@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dio_http/ApiRequest/Apirequest.dart';
+
 import 'package:provider/provider.dart';
 import 'LoderWidget/LoderWidget.dart';
 import 'Viewmodel/ViewModel.dart';
@@ -13,7 +14,7 @@ void main() {
         ),
         // Add more providers for other data models
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -44,77 +45,34 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var isloding = false;
-
-  void getdata() async {
-    isloding = UserViewModel().isLoading;
-    try {
-      final res = await UserViewModel().fetchUsers();
-      
-    } catch (error) {
-      print(error);
-    }
-    isloding = UserViewModel().isLoading;
-  }
-
   @override
   Widget build(BuildContext context) {
-    final myViewModel = Provider.of<UserViewModel>(context);
+    final myViewModel = Provider.of<UserViewModel>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    myViewModel.fetchUsers();
-                  },
-                  child: Text("hit api"),
-                ),
+      body: Consumer<UserViewModel>(builder: (context, viewModel, _) {
+        return Stack(
+          children: [
+            Center(
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      // myViewModel.fetchUsers();
+                      myViewModel.createUser(User(body: "hello", title: "developer", userId: 1));
+                    },
+                    child: Text('Fetch Data'),
+                  ),
+                  Text("name:- ${viewModel.PostUser?.body ?? ""}")
+                ],
               ),
-            ],
-          ),
-        ],
-      ),
+            ),
+            if (viewModel.isLoading) LoadingWidget() else if (viewModel.error.isNotEmpty) ErrorToast(error: "error:- ${viewModel.error.toString()}")
+          ],
+        );
+      }),
     );
   }
 }
-
-
-
- bool isLoading = false;
-  String error = "";
-
-  void fetchData() async {
-    setState(() {
-      isLoading = true;
-      error = "";
-    });
-
-    try {
-      final myViewModel = Provider.of<UserViewModel>(context, listen: false);
-      await myViewModel.fetchUsers();
-
-      // Perform any UI updates based on the response here
-
-    } catch (error) {
-      setState(() {
-        this.error = error.toString();
-      });
-    }
-
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-
- if (isLoading)
-                CircularProgressIndicator(), // Show a loading indicator while API call is in progress
-              if (error.isNotEmpty)
-                Text('Error: $error'), // Show an error message if there is an error
-              // Update the UI based on the response of the API call here

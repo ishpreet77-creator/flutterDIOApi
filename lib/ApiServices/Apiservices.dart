@@ -2,7 +2,9 @@ import 'package:dio/dio.dart';
 import 'dart:io';
 
 class ApiService {
-  static final String _baseUrl = 'https://swapi.dev/api';
+  // static final String _baseUrl = 'https://swapi.dev/api';
+  static final String _baseUrl = 'https://jsonplaceholder.typicode.com';
+
   final Dio _dio;
 
   ApiService() : _dio = Dio();
@@ -11,8 +13,6 @@ class ApiService {
     String endpoint, {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers, // Added headers parameter
-    CancelToken? cancelToken,
-    ProgressCallback? onReceiveProgress,
   }) async {
     final String url = '$_baseUrl/$endpoint';
 
@@ -20,9 +20,7 @@ class ApiService {
       final response = await _dio.get<T>(
         url,
         queryParameters: queryParameters,
-        cancelToken: cancelToken,
         options: Options(headers: headers), // Pass headers directly to Options
-        onReceiveProgress: onReceiveProgress,
       );
       return response;
     } catch (error) {
@@ -35,9 +33,6 @@ class ApiService {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers, // Added headers parameter
-    CancelToken? cancelToken,
-    ProgressCallback? onSendProgress,
-    ProgressCallback? onReceiveProgress,
   }) async {
     final String url = '$_baseUrl/$endpoint';
 
@@ -46,10 +41,7 @@ class ApiService {
         url,
         data: data,
         queryParameters: queryParameters,
-        cancelToken: cancelToken,
         options: Options(headers: headers), // Pass headers directly to Options
-        onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress,
       );
       return response;
     } catch (error) {

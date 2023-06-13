@@ -1,13 +1,15 @@
 class User {
-  final String name;
-  final String email;
+  final String? title;
+  final String? body;
+  final int? userId;
 
-  User({required this.name, required this.email});
+  User({this.title, this.body, this.userId});
 
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
-      'email': email,
+      'title': title,
+      'body': body,
+      'userId': userId,
     };
   }
 }

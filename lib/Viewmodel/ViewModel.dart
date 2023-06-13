@@ -7,13 +7,12 @@ import '../Model/model.dart';
 class UserViewModel extends ChangeNotifier {
   final ApiService _apiService = ApiService();
   bool _isLoading = false;
-  String _error = "";
   bool get isLoading => _isLoading;
+  String _error = "";
   String get error => _error;
 
   PersonModel? _users;
   PersonModel? get users => _users;
-
   Future<void> fetchUsers() async {
     _isLoading = true;
     _error = "";
@@ -21,8 +20,7 @@ class UserViewModel extends ChangeNotifier {
     try {
       final response = await _apiService.getRequest<Map<String, dynamic>>('people/1');
       final data = response.data;
-      final person = PersonModel.fromJson(data!);
-      _users = person;
+      _users = PersonModel.fromJson(data!);
     } catch (error) {
       _error = error.toString();
     }
@@ -30,20 +28,25 @@ class UserViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-
+  PostApiRes? PostUser;
+  PostApiRes? get PUser => PostUser;
   Future<void> createUser(User user) async {
     _isLoading = true;
     notifyListeners();
     final newUser = user;
+    final headers = {
+      'Content-Type': 'application/json; charset=UTF-8',
+    };
     try {
-      final response = await _apiService.postRequest('users', data: newUser.toJson());
- final data = response.data;
-//  final person = PersonModel.fromJson(data!);
-      print(data);
+      final response = await _apiService.postRequest('posts', data: newUser.toJson(), headers: headers);
+      final data1 = response.data;
+      PostUser = PostApiRes.fromJson(data1!);
+      print(data1);
     } catch (error) {
-      // Handle error
+      _error = error.toString();
+    } finally {
+      _isLoading = false;
+      notifyListeners();
     }
-    _isLoading = false;
-    notifyListeners();
   }
 }
