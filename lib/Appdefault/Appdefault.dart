@@ -1,31 +1,39 @@
+import 'package:flutter_dio_http/Model/model.dart';
+
 import '../sharedPrefrence/sharedprefrence.dart';
 
-//   class Value {
-//   static var value;
+class savestring {
+  Future<void> myString(String value) async {
+    await MySharedPreferences.saveString('myString', value);
+  }
 
-//   static void setString(dynamic newValue) async {
-//     await MySharedPreferences.saveString('myString', newValue);
-//     value = newValue;
+  Future<String> loadData(String key) async {
+    var value = await MySharedPreferences.getString(key) ?? '';
+    return value;
+  }
+}
+
+// class savemodel {
+//   Future<void> mymodel(dynamic model) async {
+//     await MySharedPreferences.saveModel("mymodel", model);
 //   }
 
-//   static Future<void> getString() async {
-//     // Retrieve the string using MySharedPreferences
-//     value = await MySharedPreferences.getString('myString') ?? '';
+//   Future<T?> loadModel<T>(String key, T Function(Map<String, dynamic>) fromJson) async {
+//     return await MySharedPreferences.getModel(key, fromJson);
 //   }
 // }
 
-class Value {
-  static var _value;
-
-  static Future<void> setString(String newValue) async {
-    await MySharedPreferences.saveString('myString', newValue);
-    _value = newValue;
+class SaveModel {
+  Future<void> savemodel(dynamic model) async {
+    await MySharedPreferences.saveModel("mymodel", model);
   }
 
-  static String getString() {
-    return _value;
+  Future<T?> loadModel<T>(T Function(Map<String, dynamic>) fromJson) async {
+    return await MySharedPreferences.getModel("mymodel", fromJson);
   }
 }
+
+
 
 
 // // Save a string

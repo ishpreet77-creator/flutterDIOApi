@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../ApiRequest/Apirequest.dart';
 import '../ApiServices/Apiservices.dart';
-
+import '../Appdefault/Appdefault.dart';
 import '../Model/model.dart';
 
 class UserViewModel extends ChangeNotifier {
@@ -10,6 +10,7 @@ class UserViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String _error = "";
   String get error => _error;
+  var saveModel = SaveModel();
 
   PersonModel? _users;
   PersonModel? get users => _users;
@@ -21,8 +22,11 @@ class UserViewModel extends ChangeNotifier {
       final response = await _apiService.getRequest<Map<String, dynamic>>('people/1');
       final data = response.data;
       _users = PersonModel.fromJson(data!);
+      print(_users?.hairColor);
+      // await saveModel.savemodel(_users); 
     } catch (error) {
       _error = error.toString();
+      print(_error);
     }
     _isLoading = false;
     notifyListeners();

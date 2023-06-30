@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:ffi';
-
 class PersonModel {
   final String? name;
   final String? height;
@@ -15,6 +12,7 @@ class PersonModel {
     this.hairColor,
     this.skinColor,
   });
+
   factory PersonModel.fromJson(Map<String, dynamic> json) {
     return PersonModel(
       name: json['name'],
@@ -37,3 +35,16 @@ class PostApiRes {
     return PostApiRes(body: json["body"], id: json["id"], title: json["title"], userId: json["userId"]);
   }
 }
+
+
+
+
+//  Map<String, dynamic> toJson() {
+//     return {
+//       'name': name,
+//       'height': height,
+//       'mass': mass,
+//       'hairColor': hairColor,
+//       'skinColor': skinColor,
+//     };
+//   }

@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'dart:io';
 
 class ApiService {
-  // static final String _baseUrl = 'https://swapi.dev/api';
-  static final String _baseUrl = 'https://jsonplaceholder.typicode.com';
+  static final String _baseUrl = 'https://swapi.dev/api';
+  // static final String _baseUrl = 'https://jsonplaceholder.typicode.com';
 
   final Dio _dio;
 

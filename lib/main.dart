@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dio_http/ApiRequest/Apirequest.dart';
-
 import 'package:provider/provider.dart';
+import 'Appdefault/Appdefault.dart';
 import 'LoderWidget/LoderWidget.dart';
+import 'Model/model.dart';
 import 'Viewmodel/ViewModel.dart';
 
 void main() {
@@ -45,6 +45,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var loadedData;
+  var models;
+  @override
+  void initState() {
+    // save();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final myViewModel = Provider.of<UserViewModel>(context, listen: false);
@@ -60,12 +68,29 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
+                      setState(() {
+                        // save();
+                      });
+                      myViewModel.fetchUsers();
+                      // myViewModel.createUser(User(body: "hello", title: "developer", userId: 1));
+                    },
+                    child: Text('save Data'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        // getvalue();
+                        // getmodel();
+                      });
+
                       // myViewModel.fetchUsers();
-                      myViewModel.createUser(User(body: "hello", title: "developer", userId: 1));
+                      // myViewModel.createUser(User(body: "hello", title: "developer", userId: 1));
                     },
                     child: Text('Fetch Data'),
                   ),
-                  Text("name:- ${viewModel.PostUser?.body ?? ""}")
+                  // Text("name:- ${viewModel.PostUser?.body ?? ""}")
+                  // Text("name:- ${viewModel.users?.name ?? ""}")
+                  Text("name:- ${loadedData ?? ""}")
                 ],
               ),
             ),
@@ -75,4 +100,17 @@ class _MyHomePageState extends State<MyHomePage> {
       }),
     );
   }
+
+  void save() async {
+    await savestring().myString('Hello, iOS develoepr  with flutter');
+  }
+
+  void getvalue() async {
+    loadedData = await savestring().loadData('myString');
+  }
+
+  // void getmodel() async {
+  //   models = await SaveModel().loadModel(PersonModel.fromJson);
+  //   print(models);
+  // }
 }
