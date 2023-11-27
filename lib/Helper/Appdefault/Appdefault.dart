@@ -1,8 +1,10 @@
-import 'package:flutter_dio_http/Model/model.dart';
+import 'package:flutter_dio_http/Screens/HOME/Model/model.dart';
 
 import '../sharedPrefrence/sharedprefrence.dart';
 
-class savestring {
+class AppDefault {
+  static final shared = AppDefault();
+
   Future<void> myString(String value) async {
     await MySharedPreferences.saveString('myString', value);
   }
@@ -11,17 +13,12 @@ class savestring {
     var value = await MySharedPreferences.getString(key) ?? '';
     return value;
   }
+
+  Future<void> clear() async {
+     await MySharedPreferences.clearAll();
+  }
 }
 
-// class savemodel {
-//   Future<void> mymodel(dynamic model) async {
-//     await MySharedPreferences.saveModel("mymodel", model);
-//   }
-
-//   Future<T?> loadModel<T>(String key, T Function(Map<String, dynamic>) fromJson) async {
-//     return await MySharedPreferences.getModel(key, fromJson);
-//   }
-// }
 
 class SaveModel {
   Future<void> savemodel(dynamic model) async {

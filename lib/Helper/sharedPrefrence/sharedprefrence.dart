@@ -26,9 +26,12 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MySharedPreferences {
+
+  
   static Future<void> saveString(String key, String value) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(key, value);
+    
   }
 
   static Future<String?> getString(String key) async {
@@ -82,7 +85,12 @@ static Future<T?> getModel<T>(String key, T Function(Map<String, dynamic> json) 
   } else {
     return null;
   }
+
 }
+ static Future<void> clearAll() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
 
 
   // static Future<void> saveModel(String key, dynamic value) async {
