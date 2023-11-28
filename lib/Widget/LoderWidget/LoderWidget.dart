@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:lottie/lottie.dart';
 
+
+import 'package:flutter_dio_http/Helper/ExportFile/Export.dart';
 class LoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class ErrorToast extends StatelessWidget {
     return Container(); // Placeholder widget, can be replaced with an appropriate UI for the toast
   }
 
-  void showErrorToast(BuildContext context, String errorMessage) {
+  static void showErrorToast(BuildContext context, String errorMessage) {
     Fluttertoast.showToast(
       msg: errorMessage,
       toastLength: Toast.LENGTH_SHORT,

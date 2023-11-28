@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dio_http/Helper/BaseClass/BaseClass.dart';
 import 'package:provider/provider.dart';
-
 import '../../../Helper/Appdefault/Appdefault.dart';
+import '../../../Widget/LoderWidget/LoderWidget.dart';
 import '../../HOME/Viewmodel/ViewModel.dart';
+import '../../LOGIN/View/LoginView.dart';
+
 
 class HomeView extends StatelessWidget {
   HomeView({super.key});
@@ -24,77 +27,46 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var loadedData;
-  var models;
   @override
   void initState() {
-    // save();
     super.initState();
+    // datacall();
+  }
+
+  datacall() {
+    Provider.of<HomeViewModel>(context, listen: false).fetchUsers();
   }
 
   @override
   Widget build(BuildContext context) {
-    final myViewModel = Provider.of<HomeViewModel>(context, listen: false);
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              Text("home"),
-              ElevatedButton(
-                child: Text("logout"),
-                onPressed: () {
-                  final val = AppDefault.shared.clear();
-                  print(val.toString());
-                },
-              )
-            ],
-          ),
-        )
-        // Consumer<UserViewModel>(builder: (context, viewModel, _) {
-        //   return Stack(
-        //     children: [
-        //       Center(
-        //         child: Column(
-        //           children: [
-        //             ElevatedButton(
-        //               onPressed: () {
-        //                 setState(() {
-        //                   save();
-        //                 });
-        //                 myViewModel.fetchUsers();
-        //                 // myViewModel.createUser(User(body: "hello", title: "developer", userId: 1));
-        //               },
-        //               child: Text('save Data'),
-        //             ),
-        //             ElevatedButton(
-        //               onPressed: () {
-        //                 setState(() {
-        //                   // getvalue();
-        //                   // getmodel();
-        //                 });
-
-        //                 // myViewModel.fetchUsers();
-        //                 // myViewModel.createUser(User(body: "hello", title: "developer", userId: 1));
-        //               },
-        //               child: Text('Fetch Data'),
-        //             ),
-        //             // Text("name:- ${viewModel.PostUser?.body ?? ""}")
-        //             // Text("name:- ${viewModel.users?.name ?? ""}")
-        //             Text("name:- ${loadedData ?? ""}")
-        //           ],
-        //         ),
-        //       ),
-        //       if (viewModel.isLoading) LoadingWidget() else if (viewModel.error.isNotEmpty) ErrorToast(error: "error:- ${viewModel.error.toString()}")
-        //     ],
-        //   );
-        // }),
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Consumer<HomeViewModel>(builder: (context, viewModel, _) {
+        return Stack(
+          children: [
+            Center(
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      AppDefault.shared.clear().then((value) {
+                        BaseClass.baseclass.Pushreplacement(context, LoginView());
+                      });
+                    },
+                    child: Text('logout'),
+                  ),
+                  //? getting the data with country api and set in the screen
+                  Text("name:- ${viewModel.users?.name ?? "helllo ishpreet singh"}")
+                ],
+              ),
+            ),
+            if (viewModel.isLoading) LoadingWidget() 
+            else if (viewModel.error.isNotEmpty) ErrorToast(error: "error:- ${viewModel.error.toString()}")
+          ],
         );
-  }
-
-  void save() async {
-    await AppDefault().myString('token');
+      }),
+    );
   }
 }

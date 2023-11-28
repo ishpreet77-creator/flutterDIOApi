@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dio_http/Screens/HOME/View/HomeView.dart';
-
 import '../Helper/Appdefault/Appdefault.dart';
 import '../Helper/ScreenSize/ScreenSize.dart';
 import 'LOGIN/View/LoginView.dart';
@@ -47,7 +45,7 @@ class _MysplashPageState extends State<MySplashPage> {
   Widget build(BuildContext context) {
     return Container(color: Colors.white, child: Icon(CupertinoIcons.smiley));
   }
-
+// ? get the value from shared prefrence
   void getvalue() async {
     token = await AppDefault.shared.loadData('myString');
   }

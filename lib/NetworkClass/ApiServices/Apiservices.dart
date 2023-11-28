@@ -1,20 +1,19 @@
-import 'package:dio/dio.dart';
-import 'dart:io';
+
+
+import '../../Helper/ExportFile/Export.dart';
+import '../Constant/Constants.dart';
+import '../Exceptions/Network_exceptions.dart';
 
 class ApiService {
-  // static final String _baseUrl = 'https://swapi.dev/api';
-  static final String _baseUrl = 'https://jsonplaceholder.typicode.com';
-
   final Dio _dio;
 
   ApiService() : _dio = Dio();
-
   Future<Response<T>> getRequest<T>(
     String endpoint, {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers, // Added headers parameter
   }) async {
-    final String url = '$_baseUrl/$endpoint';
+    final String url = '${Constants.BASE_URL}/$endpoint';
 
     try {
       final response = await _dio.get<T>(
@@ -23,6 +22,12 @@ class ApiService {
         options: Options(headers: headers), // Pass headers directly to Options
       );
       return response;
+    } on DioException catch (error) {
+      throw NetworkException.fromDioError(error);
+    } on SocketException catch (e) {
+      throw SocketException(e.toString());
+    } on FormatException catch (e) {
+      throw FormatException("Unable to process the data $e");
     } catch (error) {
       throw error;
     }
@@ -34,7 +39,7 @@ class ApiService {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers, // Added headers parameter
   }) async {
-    final String url = '$_baseUrl/$endpoint';
+    final String url = '${Constants.BASE_URL}/$endpoint';
 
     try {
       final response = await _dio.post<T>(
@@ -44,6 +49,12 @@ class ApiService {
         options: Options(headers: headers), // Pass headers directly to Options
       );
       return response;
+    } on DioException catch (error) {
+      throw NetworkException.fromDioError(error);
+    } on SocketException catch (e) {
+      throw SocketException(e.toString());
+    } on FormatException catch (e) {
+      throw FormatException("Unable to process the data $e");
     } catch (error) {
       throw error;
     }
@@ -58,7 +69,7 @@ class ApiService {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final String url = '$_baseUrl/$endpoint';
+    final String url = '${Constants.BASE_URL}/$endpoint';
 
     try {
       final formData = FormData.fromMap({
@@ -75,6 +86,12 @@ class ApiService {
         onReceiveProgress: onReceiveProgress,
       );
       return response;
+    } on DioException catch (error) {
+      throw NetworkException.fromDioError(error);
+    } on SocketException catch (e) {
+      throw SocketException(e.toString());
+    } on FormatException catch (e) {
+      throw FormatException("Unable to process the data $e");
     } catch (error) {
       throw error;
     }

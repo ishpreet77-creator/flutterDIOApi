@@ -22,7 +22,6 @@ class HomeViewModel extends ChangeNotifier {
       final data = response.data;
       _users = PersonModel.fromJson(data!);
       print(_users?.hairColor);
-      // await saveModel.savemodel(_users); 
     } catch (error) {
       _error = error.toString();
       print(_error);

@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dio_http/Screens/HOME/View/HomeView.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import '../../../Helper/Appdefault/Appdefault.dart';
 import '../../../Helper/BaseClass/BaseClass.dart';
-import '../../../LoderWidget/LoderWidget.dart';
+import '../../../Widget/LoderWidget/LoderWidget.dart';
 import '../ApiRequest/Apirequest.dart';
 import '../ViewModel/LoginVM.dart';
 
@@ -79,32 +81,33 @@ class _MyloginPageState extends State<MyLoginPage> {
                         border: OutlineInputBorder(),
                         labelText: 'UserId',
                       ),
+                      keyboardType: TextInputType.number,
                     ),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       if (tfBody.text.isEmpty || tfUserID.text.isEmpty || tfTitle.text.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text("Please enter all the data"),
-                          ),
-                        );
-                      } else if (isValidEmail(tfBody.text) == false) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text("please enter the correct body"),
-                          ),
-                        );
+                        BaseClass().showErrorToast("pleae enter data");
+                      } else if (BaseClass().isValidEmail(tfBody.text) == false) {
+                        BaseClass().showErrorToast("pleae enter vailed email");
                       } else {
-                        myViewModel.createUser(User(body: tfBody.text, title: tfTitle.text, userId: int.parse(tfUserID.text)));
+                        myViewModel.createUser(User(body: tfBody.text, title: tfTitle.text, userId: int.parse(tfUserID.text))).then((value) {
+                          tfBody.text = "";
+                          tfTitle.text = "";
+                          tfUserID.text = "";
+                          save();
+                          BaseClass.baseclass.PushScreen2(context, HomeView());
+                        });
                       }
                     },
                     child: Text('Save Data'),
                   ),
+                  Text("${viewModel.PostUser?.title ?? "ishusingh"}")
                 ],
               ),
             ),
-            if (viewModel.isLoading) LoadingWidget() else if (viewModel.error.isNotEmpty) ErrorToast(error: "error:- ${viewModel.error.toString()}")
+            if (viewModel.isLoading) LoadingWidget()
+             else if (viewModel.error.isNotEmpty) ErrorToast(error: "error:- ${viewModel.error.toString()}")
           ],
         );
       }),
