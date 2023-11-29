@@ -1,4 +1,5 @@
 import '../../Helper/ExportFile/Export.dart';
+
 class NetworkException implements Exception {
   final String message;
 
@@ -17,19 +18,19 @@ class NetworkException implements Exception {
       case DioExceptionType.badResponse:
         switch (dioError.response?.statusCode) {
           case 400:
-            return NetworkException("Bad request");
+            return NetworkException("Bad request :==> ${dioError.error}");
           case 401:
-            return NetworkException("Unauthorized");
+            return NetworkException("Unauthorized :==> ${dioError.error}");
           case 403:
-            return NetworkException("Forbidden");
+            return NetworkException("Forbidden :==> ${dioError.error}");
           case 404:
-            return NetworkException("Not found");
+            return NetworkException("Not found :==> ${dioError.error}");
           case 408:
-            return NetworkException("Request timeout");
+            return NetworkException("Request timeout :==> ${dioError.error}");
           case 500:
-            return NetworkException("Internal server error");
+            return NetworkException("Internal server error :==> ${dioError.error}");
           case 503:
-            return NetworkException("Service unavailable");
+            return NetworkException("Service unavailable :==> ${dioError.error}");
           default:
             return NetworkException("Request failed with status: ${dioError.response?.statusCode}");
         }

@@ -9,7 +9,6 @@ class HomeViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String _error = "";
   String get error => _error;
-  var saveModel = SaveModel();
 
   PersonModel? _users;
   PersonModel? get users => _users;
@@ -21,6 +20,9 @@ class HomeViewModel extends ChangeNotifier {
       final response = await _apiService.getRequest<Map<String, dynamic>>('people/1');
       final data = response.data;
       _users = PersonModel.fromJson(data!);
+
+      await AppDefault.shared.saveModel<PersonModel>('user', _users!);
+
       print(_users?.hairColor);
     } catch (error) {
       _error = error.toString();

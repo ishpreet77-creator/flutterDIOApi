@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../ApiRequest/Apirequest.dart';
 import '../../../NetworkClass/ApiServices/Apiservices.dart';
-import '../../../Helper/Appdefault/Appdefault.dart';
+
 import '../Model/LoginModel.dart';
 
 //viewModel for logic 
@@ -12,7 +12,7 @@ class LoginViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String _error = "";
   String get error => _error;
-  var saveModel = SaveModel();
+
 
   PostApiRes? PostUser;
   PostApiRes? get PUser => PostUser;
@@ -20,14 +20,13 @@ class LoginViewModel extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
     final newUser = user;
-    final headers = {
-      'Content-Type': 'application/json; charset=UTF-8',
-    };
+  
     try {
-      final response = await _apiService.postRequest('posts', data: newUser.toJson(), headers: headers);
-      final data1 = response.data;
-      PostUser = PostApiRes.fromJson(data1!);
-      print(data1);
+      final response = await _apiService.postRequest('posts', data: newUser.toJson());
+      final data = response.data;
+      print("Response == > $data");
+      PostUser = PostApiRes.fromJson(data);
+      
     } catch (error) {
       _error = error.toString();
     } finally {

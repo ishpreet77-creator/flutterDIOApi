@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dio_http/Screens/HOME/View/HomeView.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import '../../../Helper/Appdefault/Appdefault.dart';
 import '../../../Helper/BaseClass/BaseClass.dart';
@@ -14,38 +13,38 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MyLoginPage(title: 'Flutter Demo Home Page');
+    return MyLoginPage();
   }
 }
 
 class MyLoginPage extends StatefulWidget {
-  const MyLoginPage({super.key, required this.title});
-
-  final String title;
+  const MyLoginPage({super.key});
 
   @override
   State<MyLoginPage> createState() => _MyloginPageState();
 }
 
 class _MyloginPageState extends State<MyLoginPage> {
-  var loadedData;
-  var models;
+  //TODO textfield controller
+  TextEditingController tfTitle = TextEditingController();
+  TextEditingController tfBody = TextEditingController();
+  TextEditingController tfUserID = TextEditingController();
+
+//TODO  view state cycle
   @override
   void initState() {
     // save();
     super.initState();
   }
 
+//TODO design
   @override
   Widget build(BuildContext context) {
     final myViewModel = Provider.of<LoginViewModel>(context, listen: false);
 
-    TextEditingController tfTitle = TextEditingController();
-    TextEditingController tfBody = TextEditingController();
-    TextEditingController tfUserID = TextEditingController();
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("Hello flutter developer"),
       ),
       body: Consumer<LoginViewModel>(builder: (context, viewModel, _) {
         return Stack(
@@ -106,15 +105,25 @@ class _MyloginPageState extends State<MyLoginPage> {
                 ],
               ),
             ),
-            if (viewModel.isLoading) LoadingWidget()
-             else if (viewModel.error.isNotEmpty) ErrorToast(error: "error:- ${viewModel.error.toString()}")
+            if (viewModel.isLoading) LoadingWidget() else if (viewModel.error.isNotEmpty) ErrorToast(error: "error:- ${viewModel.error.toString()}")
           ],
         );
       }),
     );
   }
 
+//save the value in shared prefrence
   void save() async {
-    await AppDefault.shared.myString('token');
+    await AppDefault.shared.SaveToken('token');
+  }
+
+//disponse the controller  mainly its a good coding structure
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    tfBody.dispose();
+    tfTitle.dispose();
+    tfUserID.dispose();
+    super.dispose();
   }
 }

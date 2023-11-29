@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dio_http/Helper/BaseClass/BaseClass.dart';
+import 'package:flutter_dio_http/Screens/HOME/Model/model.dart';
 import 'package:provider/provider.dart';
 import '../../../Helper/Appdefault/Appdefault.dart';
 import '../../../Widget/LoderWidget/LoderWidget.dart';
 import '../../HOME/Viewmodel/ViewModel.dart';
 import '../../LOGIN/View/LoginView.dart';
-
 
 class HomeView extends StatelessWidget {
   HomeView({super.key});
@@ -27,10 +27,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  PersonModel? value;
+  
   @override
   void initState() {
     super.initState();
     // datacall();
+    getusermdoelvslue();
   }
 
   datacall() {
@@ -62,11 +65,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-            if (viewModel.isLoading) LoadingWidget() 
-            else if (viewModel.error.isNotEmpty) ErrorToast(error: "error:- ${viewModel.error.toString()}")
+            if (viewModel.isLoading) LoadingWidget() else if (viewModel.error.isNotEmpty) ErrorToast(error: "error:- ${viewModel.error.toString()}"),
+            Text("${value?.name}")
           ],
         );
       }),
     );
+  }
+
+  getusermdoelvslue() async {
+    value = await AppDefault.shared.getModel<PersonModel>('user', (json) => PersonModel.fromJson(json));
   }
 }

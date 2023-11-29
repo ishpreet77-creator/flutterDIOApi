@@ -47,6 +47,6 @@ class _MysplashPageState extends State<MySplashPage> {
   }
 // ? get the value from shared prefrence
   void getvalue() async {
-    token = await AppDefault.shared.loadData('myString');
+    token = await AppDefault.shared.getToken();
   }
 }

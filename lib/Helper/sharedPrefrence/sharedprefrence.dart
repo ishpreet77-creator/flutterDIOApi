@@ -54,15 +54,21 @@ class MySharedPreferences {
 }
 
 static Future<T?> getModel<T>(String key, T Function(Map<String, dynamic> json) fromJson) async {
-  final prefs = await SharedPreferences.getInstance();
-  final jsonString = prefs.getString(key);
-  if (jsonString != null) {
-    final jsonMap = json.decode(jsonString);
-    final model = fromJson(jsonMap);
-    return model;
-  } else {
+  try {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonString = prefs.getString(key);
+    if (jsonString != null) {
+      final jsonMap = json.decode(jsonString);
+      final model = fromJson(jsonMap);
+      return model;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    print("Error decoding JSON: $error");
     return null;
   }
+
 
 }
  static Future<void> clearAll() async {
