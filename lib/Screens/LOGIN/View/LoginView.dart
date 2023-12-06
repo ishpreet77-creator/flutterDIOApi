@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dio_http/Helper/Value/FontFamily.dart';
 import 'package:flutter_dio_http/Screens/HOME/View/HomeView.dart';
 import 'package:provider/provider.dart';
 import '../../../Helper/Appdefault/Appdefault.dart';
 import '../../../Helper/BaseClass/BaseClass.dart';
+import '../../../Helper/Value/ImageString.dart';
 import '../../../Widget/LoderWidget/LoderWidget.dart';
 import '../ApiRequest/Apirequest.dart';
 import '../ViewModel/LoginVM.dart';
@@ -44,7 +46,8 @@ class _MyloginPageState extends State<MyLoginPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hello flutter developer"),
+        title: Text("Hello flutter developer",
+        style: TextStyle(fontFamily: FontFamily.popins_italic),),
       ),
       body: Consumer<LoginViewModel>(builder: (context, viewModel, _) {
         return Stack(
@@ -101,7 +104,7 @@ class _MyloginPageState extends State<MyLoginPage> {
                     },
                     child: Text('Save Data'),
                   ),
-                  Text("${viewModel.PostUser?.title ?? "ishusingh"}")
+                  Text("${viewModel.PostUser?.title ?? "ishusingh"}"),
                 ],
               ),
             ),

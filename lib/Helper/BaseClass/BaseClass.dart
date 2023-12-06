@@ -1,9 +1,6 @@
-
 import 'package:flutter/cupertino.dart';
 
 import '../ExportFile/Export.dart';
-
-
 
 class BaseClass {
   static var baseclass = BaseClass();
@@ -46,7 +43,8 @@ class BaseClass {
       ),
     );
   }
-   void Pushreplacement(BuildContext context, SecondScreen) {
+
+  void Pushreplacement(BuildContext context, SecondScreen) {
     Navigator.pushReplacement(
       context,
       PageRouteBuilder(
@@ -63,7 +61,8 @@ class BaseClass {
       ),
     );
   }
-//TODO :- Push screen 
+
+//TODO :- Push screen
   void PushScreen(BuildContext context, SecondScreen) {
     Navigator.push(
       context,
@@ -188,6 +187,37 @@ class BaseClass {
             ),
           ],
         ),
+      );
+    }
+  }
+
+  void openBottomSheet(BuildContext context, bool shouldShow) {
+    if (shouldShow) {
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'network conenction is loads',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Icon(
+                    CupertinoIcons.wifi,
+                    size: 50,
+                  )
+                ],
+              ),
+            ),
+          );
+        },
       );
     }
   }

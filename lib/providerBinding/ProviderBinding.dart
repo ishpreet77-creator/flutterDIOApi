@@ -1,5 +1,5 @@
 import 'package:provider/provider.dart';
-import '../Screens/HOME/Viewmodel/ViewModel.dart';
+import '../Screens/HOME/Viewmodel/HomeViewModel.dart';
 import '../Screens/LOGIN/ViewModel/LoginVM.dart';
 
 //TODO  declare all provider in this  variable

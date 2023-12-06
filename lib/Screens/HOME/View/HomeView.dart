@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dio_http/Helper/BaseClass/BaseClass.dart';
-import 'package:flutter_dio_http/Screens/HOME/Model/model.dart';
+import 'package:flutter_dio_http/Screens/HOME/Model/PersonModel.dart';
 import 'package:provider/provider.dart';
 import '../../../Helper/Appdefault/Appdefault.dart';
 import '../../../Widget/LoderWidget/LoderWidget.dart';
-import '../../HOME/Viewmodel/ViewModel.dart';
+import '../../../main.dart';
+import '../Viewmodel/HomeViewModel.dart';
 import '../../LOGIN/View/LoginView.dart';
 
 class HomeView extends StatelessWidget {
@@ -28,12 +29,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   PersonModel? value;
-  
+
   @override
   void initState() {
     super.initState();
     // datacall();
     getusermdoelvslue();
+
+    if (Checkinternet == true) {
+      BaseClass.baseclass.openBottomSheet(context, Checkinternet);
+    } else {
+      BaseClass.baseclass.openBottomSheet(context, false);
+    }
   }
 
   datacall() {

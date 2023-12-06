@@ -1,12 +1,12 @@
-
-
 import 'package:flutter_dio_http/Helper/ExportFile/Export.dart';
+import 'package:flutter_dio_http/Helper/Value/AnimationString.dart';
+
 class LoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Lottie.asset(
-        'assets/animation/loader.json',
+        AnimationString.loader_animation,
         width: 300,
         height: 200,
       ),

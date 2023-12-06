@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../NetworkClass/ApiServices/Apiservices.dart';
 import '../../../Helper/Appdefault/Appdefault.dart';
-import '../Model/model.dart';
+import '../Model/PersonModel.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final ApiService _apiService = ApiService();

@@ -1,6 +1,6 @@
 export 'dart:async';
 //TODO APP DEFALUT/ Shared prefrence 
-export 'package:flutter_dio_http/Screens/HOME/Model/model.dart';
+export 'package:flutter_dio_http/Screens/HOME/Model/PersonModel.dart';
 export '../sharedPrefrence/sharedprefrence.dart';
 export 'dart:convert';
 export 'package:shared_preferences/shared_preferences.dart';
