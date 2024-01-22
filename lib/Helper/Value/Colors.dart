@@ -2,17 +2,15 @@ import 'package:flutter/material.dart';
 
 class StaticColors {
   static LoginScreen login_screen = LoginScreen();
-  
+
   LinearGradient splashGradient = LinearGradient(
-  colors: [
-    Color.fromRGBO(253, 90, 71, 1.0),
-    Color.fromRGBO(253, 119, 70, 1.0)
-  ],
-  begin: Alignment.topCenter,
-  end: Alignment.bottomCenter,
-);
-
-
+    colors: [
+      Color.fromRGBO(253, 90, 71, 1.0),
+      Color.fromRGBO(253, 119, 70, 1.0)
+    ],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
 }
 
 class LoginScreen {
@@ -33,3 +31,52 @@ class HexColor extends Color {
 
   HexColor(final String hexColor) : super(getcolorfromHex(hexColor));
 }
+
+// class accordingToDevice {
+
+//   static var devicetheme = accordingToDevice();
+//   static Brightness? globalBrightness;
+
+//   static void theme(BuildContext context) {
+//     globalBrightness = MediaQuery.of(context).platformBrightness;
+//   }
+
+//   static String get text => globalBrightness == Brightness.light ? 'LIGHT MODE' : 'DARK MODE';
+
+//   static Color get textcolor => globalBrightness == Brightness.light ? Colors.green : Colors.yellow;
+// }
+
+class staticColor {
+  static var shared = staticColor();
+
+  static bool isdarkmode = false;
+
+  static Color get textcolor2 => isdarkmode ? Colors.green : Colors.yellow;
+  static Color get textcolor => isdarkmode ? Colors.red : Colors.blue;
+}
+
+
+//ussage the color like this 
+/*   void toggleTheme(bool value) {
+    setState(() {
+      staticColor.isdarkmode = value;
+    });
+  }*/
+  /*
+   Switch(
+              value: staticColor.isdarkmode,
+              focusColor: Colors.yellow,
+              activeTrackColor: Colors.red,
+              inactiveTrackColor: Colors.black,
+              onChanged: toggleTheme,
+            ),
+   */
+  /*
+   Text(
+             "jmh",
+              style: TextStyle(
+                
+                color: staticColor.textcolor2,
+              ),
+            ),
+   */
